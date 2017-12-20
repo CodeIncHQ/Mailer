@@ -1,0 +1,32 @@
+{
+  "name": "codeinchq/lib-mailer",
+  "version": "1.0.7",
+  "description": "Code Inc.'s exception display library",
+  "homepage": "https://github.com/codeinchq/lib-errordisplay",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "CodeInc\\Mailer\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Joan Fabrégat",
+      "email": "joan@codeinc.fr",
+      "homepage": "https://www.codeinc.fr",
+      "role": "developer"
+    }
+  ],
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    }
+  },
+  "repositories": [
+    { "type": "vcs", "url": "https://github.com/codeinchq/lib-service" }
+  ]
+}
