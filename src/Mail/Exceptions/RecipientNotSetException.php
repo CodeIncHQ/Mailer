@@ -16,43 +16,28 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     11:57
+// Time:     12:18
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects;
-use CodeInc\Mailer\CodeIncMailerException;
-use CodeInc\Service\DomainObject\DomainObjectInterface;
+namespace CodeInc\Mailer\Mail\Exceptions;
+use CodeInc\Mailer\Mail\EMailInterface;
 use Throwable;
 
 
 /**
- * Class DomainObjectException
+ * Class RecipientNotSetException
  *
- * @package CodeInc\Mailer\DomainObjects
+ * @package CodeInc\Mailer\Mail\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class DomainObjectException extends CodeIncMailerException {
+class RecipientNotSetException extends MailException {
 	/**
-	 * @var DomainObjectInterface
-	 */
-	private $domainObject;
-
-	/**
-	 * DomainObjectException constructor.
+	 * RecipientNotSetException constructor.
 	 *
-	 * @param DomainObjectInterface $domainObject
-	 * @param string $message
+	 * @param EMailInterface $domainObject
 	 * @param Throwable|null $previous
 	 */
-	public function __construct(DomainObjectInterface $domainObject, string $message = null, Throwable $previous = null) {
-		$this->domainObject = $domainObject;
-		parent::__construct($message, $previous);
-	}
-
-	/**
-	 * @return DomainObjectInterface
-	 */
-	public function getDomainObject():DomainObjectInterface {
-		return $this->domainObject;
+	public function __construct(EMailInterface $domainObject, Throwable $previous = null) {
+		parent::__construct($domainObject, "The recipient field (to) is not set", $previous);
 	}
 }

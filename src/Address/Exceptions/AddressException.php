@@ -16,28 +16,30 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     16:22
+// Time:     12:15
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Mail\Exceptions;
-use CodeInc\Mailer\DomainObjects\Mail\MailInterface;
+namespace CodeInc\Mailer\Address\Exceptions;
+use CodeInc\Mailer\Address\AddressInteface;
+use CodeInc\Mailer\DomainObjectException;
 use Throwable;
 
 
 /**
- * Class MarkdownConvertException
+ * Class AddressException
  *
- * @package CodeInc\Mailer\DomainObjects\Mail\Exceptions
+ * @package CodeInc\Mailer\Address\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class MarkdownConvertException extends MailException {
+class AddressException extends DomainObjectException {
 	/**
-	 * MarkdownConvertException constructor.
+	 * AddressException constructor.
 	 *
-	 * @param MailInterface $domainObject
+	 * @param AddressInteface $domainObject
+	 * @param string|null $message
 	 * @param Throwable|null $previous
 	 */
-	public function __construct(MailInterface $domainObject, Throwable $previous = null) {
-		parent::__construct($domainObject, "Error while converting markdown to HTML", $previous);
+	public function __construct(AddressInteface $domainObject, string $message = null, Throwable $previous = null) {
+		parent::__construct($domainObject, $message, $previous);
 	}
 }

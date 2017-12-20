@@ -16,28 +16,30 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     12:19
+// Time:     16:35
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Mail\Exceptions;
-use CodeInc\Mailer\DomainObjects\Mail\MailInterface;
+namespace CodeInc\Mailer\Mailers\PHPMailer\Exceptions;
+use CodeInc\Mailer\Mailers\MailerException;
+use CodeInc\Mailer\Mailers\PHPMailer\PHPMailer;
 use Throwable;
 
 
 /**
- * Class ContentNotSetException
+ * Class PHPMailerException
  *
- * @package CodeInc\Mailer\DomainObjects\Mail\Exceptions
+ * @package CodeInc\Mailer\Mailers\PHPMailer\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class ContentNotSetException extends MailException {
+class PHPMailerException extends MailerException {
 	/**
-	 * ContentNotSetException constructor.
+	 * PHPMailerException constructor.
 	 *
-	 * @param MailInterface $domainObject
+	 * @param PHPMailer $mailer
+	 * @param string $message
 	 * @param Throwable|null $previous
 	 */
-	public function __construct(MailInterface $domainObject, Throwable $previous = null) {
-		parent::__construct($domainObject, "The content is not set", $previous);
+	public function __construct(PHPMailer $mailer, string $message = "", Throwable $previous = null) {
+		parent::__construct($mailer, $message, $previous);
 	}
 }

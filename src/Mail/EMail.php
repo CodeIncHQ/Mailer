@@ -19,24 +19,24 @@
 // Time:     11:48
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Mail;
-use CodeInc\Mailer\DomainObjects\Address\AddressInteface;
-use CodeInc\Mailer\DomainObjects\Mail\Exceptions\ContentNotSetException;
-use CodeInc\Mailer\DomainObjects\Mail\Exceptions\EmptySubjectException;
-use CodeInc\Mailer\DomainObjects\Mail\Exceptions\HTMLConvertException;
-use CodeInc\Mailer\DomainObjects\Mail\Exceptions\RecipientNotSetException;
-use CodeInc\Mailer\DomainObjects\Mail\Exceptions\SenderNotSetException;
-use CodeInc\Mailer\DomainObjects\Mail\Exceptions\SubjectNotSetException;
+namespace CodeInc\Mailer\Mail;
+use CodeInc\Mailer\Address\AddressInteface;
+use CodeInc\Mailer\Mail\Exceptions\ContentNotSetException;
+use CodeInc\Mailer\Mail\Exceptions\EmptySubjectException;
+use CodeInc\Mailer\Mail\Exceptions\HTMLConvertException;
+use CodeInc\Mailer\Mail\Exceptions\RecipientNotSetException;
+use CodeInc\Mailer\Mail\Exceptions\SenderNotSetException;
+use CodeInc\Mailer\Mail\Exceptions\SubjectNotSetException;
 use Html2Text\Html2Text;
 
 
 /**
- * Class Email
+ * Class EMail
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Mail
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class Mail implements MailInterface {
+class EMail implements EMailInterface {
 	/**
 	 * @var string
 	 */

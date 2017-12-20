@@ -16,30 +16,59 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     12:17
+// Time:     16:19
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Mail\Exceptions;
-use CodeInc\Mailer\DomainObjects\DomainObjectException;
-use CodeInc\Mailer\DomainObjects\Mail\MailInterface;
-use Throwable;
-
+namespace CodeInc\Mailer\Mail;
+use CodeInc\Mailer\Mail\Exceptions\MarkdownConvertException;
+use Parsedown;
 
 /**
- * Class MailException
+ * Class MarkdownEMail
  *
- * @package CodeInc\Mailer\DomainObjects\Mail
+ * @package CodeInc\Mailer\Mail
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class MailException extends DomainObjectException {
+class MarkdownEMail extends EMail {
 	/**
-	 * MailException constructor.
-	 *
-	 * @param MailInterface $domainObject
-	 * @param string|null $message
-	 * @param Throwable|null $previous
+	 * @var Parsedown
 	 */
-	public function __construct(MailInterface $domainObject, string $message = null, Throwable $previous = null) {
-		parent::__construct($domainObject, $message, $previous);
+	private $parsedown;
+
+	/**
+	 * Sets the parsedown content.
+	 *
+	 * @param Parsedown $parsedown
+	 */
+	public function setParsedown(Parsedown $parsedown) {
+		$this->parsedown = $parsedown;
+	}
+
+	/**
+	 * Returns the parsedown object.
+	 *
+	 * @return Parsedown
+	 */
+	public function getParsedown():Parsedown {
+		if (!$this->parsedown) {
+			$this->parsedown = new Parsedown();
+		}
+		return $this->parsedown;
+	}
+
+	/**
+	 * Sets the markdown content.
+	 *
+	 * @param string $markdownContent
+	 * @throws MarkdownConvertException
+	 */
+	public function setMarkdownContent(string $markdownContent) {
+		try {
+			$HTML = $this->getParsedown()->text($markdownContent);
+		}
+		catch (\Throwable $exception) {
+			throw new MarkdownConvertException($this, $exception);
+		}
+		$this->setHTMLContent($HTML);
 	}
 }

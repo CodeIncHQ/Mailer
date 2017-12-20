@@ -16,30 +16,30 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     12:15
+// Time:     12:08
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Address\Exceptions;
-use CodeInc\Mailer\DomainObjects\Address\AddressInteface;
-use CodeInc\Mailer\DomainObjects\DomainObjectException;
+namespace CodeInc\Mailer\Mailers\SendGrid\Exceptions;
+use CodeInc\Mailer\Mailers\MailerException;
+use CodeInc\Mailer\Mailers\SendGrid\SendGridMailer;
 use Throwable;
 
 
 /**
- * Class AddressException
+ * Class SendGridMailerException
  *
- * @package CodeInc\Mailer\DomainObjects\Address
+ * @package CodeInc\Mailer\Mailers\SendGrid\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class AddressException extends DomainObjectException {
+class SendGridMailerException extends MailerException {
 	/**
-	 * AddressException constructor.
+	 * SendGridMailerException constructor.
 	 *
-	 * @param AddressInteface $domainObject
-	 * @param string|null $message
+	 * @param SendGridMailer $sendGridMailer
+	 * @param string $message
 	 * @param Throwable|null $previous
 	 */
-	public function __construct(AddressInteface $domainObject, string $message = null, Throwable $previous = null) {
-		parent::__construct($domainObject, $message, $previous);
+	public function __construct(SendGridMailer $sendGridMailer, string $message = "", Throwable $previous = null) {
+		parent::__construct($sendGridMailer, $message, $previous);
 	}
 }

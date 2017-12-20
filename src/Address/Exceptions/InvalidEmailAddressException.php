@@ -16,27 +16,29 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     11:50
+// Time:     12:15
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Address;
-use CodeInc\Service\DomainObject\DomainObjectInterface;
+namespace CodeInc\Mailer\Address\Exceptions;
+use CodeInc\Mailer\Address\AddressInteface;
+use Throwable;
 
 
 /**
- * Interface AdressInteface
+ * Class InvalidEmailAddressException
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Address\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-interface AddressInteface extends DomainObjectInterface {
+class InvalidEmailAddressException extends AddressException {
 	/**
-	 * @return string
+	 * InvalidEmailAddressException constructor.
+	 *
+	 * @param AddressInteface $domainObject
+	 * @param string $address
+	 * @param Throwable|null $previous
 	 */
-	public function getName():string;
-
-	/**
-	 * @return string
-	 */
-	public function getAddress():string;
+	public function __construct(AddressInteface $domainObject, string $address, Throwable $previous = null) {
+		parent::__construct($domainObject, "The email address \"$address\" is invalid", $previous);
+	}
 }

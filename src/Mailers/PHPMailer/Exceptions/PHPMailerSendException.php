@@ -16,24 +16,28 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     11:48
+// Time:     16:44
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\Mailers;
-use CodeInc\Mailer\Mail\EMailInterface;
-use CodeInc\Service\Service\ServiceInterface;
+namespace CodeInc\Mailer\Mailers\PHPMailer\Exceptions;
+use CodeInc\Mailer\Mailers\PHPMailer\PHPMailer;
+use Throwable;
 
 
 /**
- * Interface MailerServiceInterface
+ * Class PHPMailerSendException
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Mailers\PHPMailer\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-interface MailerInterface extends ServiceInterface {
+class PHPMailerSendException extends PHPMailerException {
 	/**
-	 * @param EMailInterface $email
-	 * @return void|mixed
+	 * PHPMailerSendException constructor.
+	 *
+	 * @param PHPMailer $mailer
+	 * @param Throwable|null $previous
 	 */
-	public function send(EMailInterface $email);
+	public function __construct(PHPMailer $mailer, Throwable $previous = null) {
+		parent::__construct($mailer, "Error while sending an email using PHPMailer", $previous);
+	}
 }

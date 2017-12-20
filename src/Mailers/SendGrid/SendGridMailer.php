@@ -20,8 +20,12 @@
 // Project:  lib-mailer
 //
 namespace CodeInc\Mailer\Mailers\SendGrid;
-use CodeInc\Mailer\DomainObjects\Mail\MailInterface;
+use CodeInc\Mailer\Mail\EMailInterface;
 use CodeInc\Mailer\Mailers\MailerInterface;
+use CodeInc\Mailer\Mailers\SendGrid\Exceptions\SendGridCURLMissingException;
+use CodeInc\Mailer\Mailers\SendGrid\Exceptions\SendGridEmptyAPIKeyException;
+use CodeInc\Mailer\Mailers\SendGrid\Exceptions\SendGridMailerException;
+use CodeInc\Mailer\Mailers\SendGrid\Exceptions\SendGridMailerSendException;
 
 
 /**
@@ -31,6 +35,8 @@ use CodeInc\Mailer\Mailers\MailerInterface;
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
 class SendGridMailer implements MailerInterface {
+	const SENDGRID_API_ENDPOINT = 'https://api.sendgrid.com/api/mail.send.json';
+
 	/**
 	 * @var string
 	 */
@@ -40,25 +46,32 @@ class SendGridMailer implements MailerInterface {
 	 * SendGridMailer constructor.
 	 *
 	 * @param string $sendGridAPIKey
-	 * @throws SendGridMailerException
+	 * @throws SendGridCURLMissingException
+	 * @throws SendGridEmptyAPIKeyException
 	 */
 	public function __construct(string $sendGridAPIKey) {
-		if (!extension_loaded('curl')) {
-			throw new SendGridMailerException($this,
-				"the PHP cURL extension is required for the SendGrid mailer");
-		}
+		$this->checkCURL();
 		$this->setSendGridAPIKey($sendGridAPIKey);
+	}
+
+	/**
+	 * @throws SendGridCURLMissingException
+	 */
+	private function checkCURL() {
+		if (!extension_loaded('curl')) {
+			throw new SendGridCURLMissingException($this);
+		}
 	}
 
 	/**
 	 * Sets the SendGrid API key.
 	 *
 	 * @param string $sendGridAPIKey
-	 * @throws SendGridMailerException
+	 * @throws SendGridEmptyAPIKeyException
 	 */
 	protected function setSendGridAPIKey(string $sendGridAPIKey) {
 		if (empty($sendGridAPIKey)) {
-			throw new SendGridMailerException($this, "The SendGrid API key can not be empty");
+			throw new SendGridEmptyAPIKeyException($this);
 		}
 		$this->sendGridAPIKey = $sendGridAPIKey;
 	}
@@ -75,22 +88,46 @@ class SendGridMailer implements MailerInterface {
 	/**
 	 * Send the email using the SendGrid API.
 	 *
-	 * @param MailInterface $mail
+	 * @param EMailInterface $email
 	 * @see https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/php.html
-	 * @throws SendGridMailerException
+	 * @throws SendGridMailerSendException
+	 * @return array
 	 */
-	public function send(MailInterface $mail) {
+	public function send(EMailInterface $email):array {
 		try {
-			$session = curl_init('https://api.sendgrid.com/api/mail.send.json');
+			// Preparing post parameters
+			$postParam = [
+				'to'        => $email->getTo()->getAddress(),
+				'toname'    => $email->getTo()->getName(),
+				'from'      => $email->getFrom()->getAddress(),
+				'fromname'  => $email->getFrom()->getName(),
+				'subject'   => $email->getSubject(),
+				'text'      => $email->getTextContent(),
+				'html'      => $email->getHTMLContent(),
+				'x-smtpapi' => json_encode([
+					'sub' => [':name' => ['Elmer']],
+					'filters' => [
+						'templates' => [
+							'settings' => [
+								'enable' => 0
+							]
+						]
+					]
+				]),
+			];
+			
+			// Sending
+			$session = curl_init($this::SENDGRID_API_ENDPOINT);
 			curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 			curl_setopt($session, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $this->sendGridAPIKey]);
 			curl_setopt ($session, CURLOPT_POST, true);
-			curl_setopt ($session, CURLOPT_POSTFIELDS, $this->getMailParameters($mail));
+			curl_setopt ($session, CURLOPT_POSTFIELDS, $postParam);
 			curl_setopt($session, CURLOPT_HEADER, false);
 			curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 			$rawResponse = curl_exec($session);
 			curl_close($session);
 
+			// Parsing result
 			if (($response = json_decode($rawResponse, true)) === false || !isset($response['message'])) {
 				throw new SendGridMailerException($this,
 					"Unable to parse the API reponse : $rawResponse");
@@ -99,39 +136,11 @@ class SendGridMailer implements MailerInterface {
 				throw new SendGridMailerException($this,
 					"SendGrid error(s) : ".implode(", ", $response['errors']));
 			}
+
+			return $response;
 		}
 		catch (\Throwable $exception) {
-			throw new SendGridMailerException($this,
-				"Error while sending an email using SendGrid",
-				$exception);
+			throw new SendGridMailerSendException($this, $exception);
 		}
-	}
-
-	/**
-	 * Returns the SendGrid parameters corresponding to a given email.
-	 *
-	 * @param MailInterface $mail
-	 * @return array
-	 */
-	private function getMailParameters(MailInterface $mail):array {
-		return [
-			'to'        => $mail->getTo()->getAddress(),
-			'toname'    => $mail->getTo()->getName(),
-			'from'      => $mail->getFrom()->getAddress(),
-			'fromname'  => $mail->getFrom()->getName(),
-			'subject'   => $mail->getSubject(),
-			'text'      => $mail->getTextContent(),
-			'html'      => $mail->getHTMLContent(),
-			'x-smtpapi' => json_encode([
-				'sub' => [':name' => ['Elmer']],
-				'filters' => [
-					'templates' => [
-						'settings' => [
-							'enable' => 0
-						]
-					]
-				]
-			]),
-		];
 	}
 }

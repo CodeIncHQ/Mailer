@@ -16,28 +16,27 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     12:18
+// Time:     11:50
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Mail\Exceptions;
-use CodeInc\Mailer\DomainObjects\Mail\MailInterface;
-use Throwable;
+namespace CodeInc\Mailer\Address;
+use CodeInc\Service\DomainObject\DomainObjectInterface;
 
 
 /**
- * Class SubjectNotSetException
+ * Interface AddressInteface
  *
- * @package CodeInc\Mailer\DomainObjects\Mail\Exceptions
+ * @package CodeInc\Mailer\Address
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class SubjectNotSetException extends MailException {
+interface AddressInteface extends DomainObjectInterface {
 	/**
-	 * SubjectNotSetException constructor.
-	 *
-	 * @param MailInterface $domainObject
-	 * @param Throwable|null $previous
+	 * @return string
 	 */
-	public function __construct(MailInterface $domainObject, Throwable $previous = null) {
-		parent::__construct($domainObject, "The subject is not set", $previous);
-	}
+	public function getName():string;
+
+	/**
+	 * @return string
+	 */
+	public function getAddress():string;
 }

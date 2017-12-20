@@ -16,53 +16,28 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     11:49
+// Time:     12:17
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Mail;
-use CodeInc\Mailer\DomainObjects\Address\AddressInteface;
-use CodeInc\Service\DomainObject\DomainObjectInterface;
+namespace CodeInc\Mailer\Mail\Exceptions;
+use CodeInc\Mailer\Mail\EMailInterface;
+use Throwable;
 
 
 /**
- * Interface MailInterface
+ * Class SenderNotSetException
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Mail\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-interface MailInterface extends DomainObjectInterface {
+class SenderNotSetException extends MailException {
 	/**
-	 * @return AddressInteface
+	 * SenderNotSetException constructor.
+	 *
+	 * @param EMailInterface $domainObject
+	 * @param Throwable|null $previous
 	 */
-	public function getFrom():AddressInteface;
-
-	/**
-	 * @return AddressInteface
-	 */
-	public function getTo():AddressInteface;
-
-	/**
-	 * @return string
-	 */
-	public function getSubject():string;
-
-	/**
-	 * @return bool
-	 */
-	public function hasTextContent():bool;
-
-	/**
-	 * @return string
-	 */
-	public function getTextContent():string;
-
-	/**
-	 * @return bool
-	 */
-	public function hasHTMLContent():bool;
-
-	/**
-	 * @return string
-	 */
-	public function getHTMLContent():string;
+	public function __construct(EMailInterface $domainObject, Throwable $previous = null) {
+		parent::__construct($domainObject, "The sender field (from) is not set", $previous);
+	}
 }

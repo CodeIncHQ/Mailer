@@ -16,24 +16,28 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     11:48
+// Time:     12:24
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\Mailers;
+namespace CodeInc\Mailer\Mail\Exceptions;
 use CodeInc\Mailer\Mail\EMailInterface;
-use CodeInc\Service\Service\ServiceInterface;
+use Throwable;
 
 
 /**
- * Interface MailerServiceInterface
+ * Class EmptySubjectException
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Mail\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-interface MailerInterface extends ServiceInterface {
+class EmptySubjectException extends MailException {
 	/**
-	 * @param EMailInterface $email
-	 * @return void|mixed
+	 * EmptySubjectException constructor.
+	 *
+	 * @param EMailInterface $domainObject
+	 * @param Throwable|null $previous
 	 */
-	public function send(EMailInterface $email);
+	public function __construct(EMailInterface $domainObject, Throwable $previous = null) {
+		parent::__construct($domainObject, "The subject can not be empty", $previous);
+	}
 }

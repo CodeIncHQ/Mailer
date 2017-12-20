@@ -16,29 +16,28 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     12:15
+// Time:     16:42
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Address\Exceptions;
-use CodeInc\Mailer\DomainObjects\Address\AddressInteface;
+namespace CodeInc\Mailer\Mailers\SendGrid\Exceptions;
+use CodeInc\Mailer\Mailers\SendGrid\SendGridMailer;
 use Throwable;
 
 
 /**
- * Class InvalidEmailAddressException
+ * Class SendGridEmptyAPIKeyException
  *
- * @package CodeInc\Mailer\DomainObjects\Address\Exceptions
+ * @package CodeInc\Mailer\Mailers\SendGrid\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class InvalidEmailAddressException extends AddressException {
+class SendGridEmptyAPIKeyException extends SendGridMailerException {
 	/**
-	 * InvalidEmailAddressException constructor.
+	 * SendGridEmptyAPIKeyException constructor.
 	 *
-	 * @param AddressInteface $domainObject
-	 * @param string $address
+	 * @param SendGridMailer $sendGridMailer
 	 * @param Throwable|null $previous
 	 */
-	public function __construct(AddressInteface $domainObject, string $address, Throwable $previous = null) {
-		parent::__construct($domainObject, "The email address \"$address\" is invalid", $previous);
+	public function __construct(SendGridMailer $sendGridMailer, Throwable $previous = null) {
+		parent::__construct($sendGridMailer, "The SendGrid API key can not be empty", $previous);
 	}
 }

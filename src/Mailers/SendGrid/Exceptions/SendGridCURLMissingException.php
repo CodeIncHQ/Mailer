@@ -16,24 +16,32 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     11:48
+// Time:     16:41
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\Mailers;
-use CodeInc\Mailer\Mail\EMailInterface;
-use CodeInc\Service\Service\ServiceInterface;
+namespace CodeInc\Mailer\Mailers\SendGrid\Exceptions;
+use CodeInc\Mailer\Mailers\SendGrid\SendGridMailer;
+use Throwable;
 
 
 /**
- * Interface MailerServiceInterface
+ * Class SendGridCURLMissingException
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Mailers\SendGrid\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-interface MailerInterface extends ServiceInterface {
+class SendGridCURLMissingException extends SendGridMailerException {
 	/**
-	 * @param EMailInterface $email
-	 * @return void|mixed
+	 * SendGridCURLMissingException constructor.
+	 *
+	 * @param SendGridMailer $sendGridMailer
+	 * @param Throwable|null $previous
 	 */
-	public function send(EMailInterface $email);
+	public function __construct(SendGridMailer $sendGridMailer, Throwable $previous = null) {
+		parent::__construct(
+			$sendGridMailer,
+			"The PHP cURL extension is required for the SendGrid mailer",
+			$previous
+		);
+	}
 }

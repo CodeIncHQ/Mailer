@@ -16,24 +16,53 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     11:48
+// Time:     11:49
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\Mailers;
-use CodeInc\Mailer\Mail\EMailInterface;
-use CodeInc\Service\Service\ServiceInterface;
+namespace CodeInc\Mailer\Mail;
+use CodeInc\Mailer\Address\AddressInteface;
+use CodeInc\Service\DomainObject\DomainObjectInterface;
 
 
 /**
- * Interface MailerServiceInterface
+ * Interface EMailInterface
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Mail
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-interface MailerInterface extends ServiceInterface {
+interface EMailInterface extends DomainObjectInterface {
 	/**
-	 * @param EMailInterface $email
-	 * @return void|mixed
+	 * @return AddressInteface
 	 */
-	public function send(EMailInterface $email);
+	public function getFrom():AddressInteface;
+
+	/**
+	 * @return AddressInteface
+	 */
+	public function getTo():AddressInteface;
+
+	/**
+	 * @return string
+	 */
+	public function getSubject():string;
+
+	/**
+	 * @return bool
+	 */
+	public function hasTextContent():bool;
+
+	/**
+	 * @return string
+	 */
+	public function getTextContent():string;
+
+	/**
+	 * @return bool
+	 */
+	public function hasHTMLContent():bool;
+
+	/**
+	 * @return string
+	 */
+	public function getHTMLContent():string;
 }

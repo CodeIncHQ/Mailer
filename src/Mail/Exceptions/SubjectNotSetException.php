@@ -16,29 +16,28 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     12:08
+// Time:     12:18
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\Mailers\SendGrid;
-use CodeInc\Mailer\Mailers\MailerException;
+namespace CodeInc\Mailer\Mail\Exceptions;
+use CodeInc\Mailer\Mail\EMailInterface;
 use Throwable;
 
 
 /**
- * Class SendGridMailerException
+ * Class SubjectNotSetException
  *
- * @package CodeInc\Mailer\Mailers\SendGrid
+ * @package CodeInc\Mailer\Mail\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class SendGridMailerException extends MailerException {
+class SubjectNotSetException extends MailException {
 	/**
-	 * SendGridMailerException constructor.
+	 * SubjectNotSetException constructor.
 	 *
-	 * @param SendGridMailer $sendGridMailer
-	 * @param string $message
+	 * @param EMailInterface $domainObject
 	 * @param Throwable|null $previous
 	 */
-	public function __construct(SendGridMailer $sendGridMailer, string $message = "", Throwable $previous = null) {
-		parent::__construct($sendGridMailer, $message, $previous);
+	public function __construct(EMailInterface $domainObject, Throwable $previous = null) {
+		parent::__construct($domainObject, "The subject is not set", $previous);
 	}
 }

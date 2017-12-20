@@ -16,28 +16,30 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     16:26
+// Time:     12:17
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Mail\Exceptions;
-use CodeInc\Mailer\DomainObjects\Mail\MailInterface;
+namespace CodeInc\Mailer\Mail\Exceptions;
+use CodeInc\Mailer\DomainObjectException;
+use CodeInc\Mailer\Mail\EMailInterface;
 use Throwable;
 
 
 /**
- * Class HTMLConvertException
+ * Class MailException
  *
- * @package CodeInc\Mailer\DomainObjects\Mail\Exceptions
+ * @package CodeInc\Mailer\Mail\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class HTMLConvertException extends MailException {
+class MailException extends DomainObjectException {
 	/**
-	 * HTMLConvertException constructor.
+	 * MailException constructor.
 	 *
-	 * @param MailInterface $domainObject
+	 * @param EMailInterface $domainObject
+	 * @param string|null $message
 	 * @param Throwable|null $previous
 	 */
-	public function __construct(MailInterface $domainObject, Throwable $previous = null) {
-		parent::__construct($domainObject, "Error while converting HTML to text", $previous);
+	public function __construct(EMailInterface $domainObject, string $message = null, Throwable $previous = null) {
+		parent::__construct($domainObject, $message, $previous);
 	}
 }

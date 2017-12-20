@@ -16,28 +16,28 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     12:24
+// Time:     16:36
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Mail\Exceptions;
-use CodeInc\Mailer\DomainObjects\Mail\MailInterface;
+namespace CodeInc\Mailer\Mailers\SendGrid\Exceptions;
+use CodeInc\Mailer\Mailers\SendGrid\SendGridMailer;
 use Throwable;
 
 
 /**
- * Class EmptySubjectException
+ * Class SendGridMailerSendException
  *
- * @package CodeInc\Mailer\DomainObjects\Mail\Exceptions
+ * @package CodeInc\Mailer\Mailers\SendGrid\Exceptions
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class EmptySubjectException extends MailException {
+class SendGridMailerSendException extends SendGridMailerException {
 	/**
-	 * EmptySubjectException constructor.
+	 * SendGridMailerSendException constructor.
 	 *
-	 * @param MailInterface $domainObject
+	 * @param SendGridMailer $sendGridMailer
 	 * @param Throwable|null $previous
 	 */
-	public function __construct(MailInterface $domainObject, Throwable $previous = null) {
-		parent::__construct($domainObject, "The subject can not be empty", $previous);
+	public function __construct(SendGridMailer $sendGridMailer, Throwable $previous = null) {
+		parent::__construct($sendGridMailer, "Error while sending an email using SendGrid", $previous);
 	}
 }

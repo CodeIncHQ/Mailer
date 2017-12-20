@@ -16,24 +16,42 @@
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
-// Time:     11:48
+// Time:     16:48
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\Mailers;
-use CodeInc\Mailer\Mail\EMailInterface;
-use CodeInc\Service\Service\ServiceInterface;
+namespace CodeInc\Mailer\Mailers\SMTPMailer;
+use CodeInc\Mailer\Mailers\PHPMailer\PHPMailer;
 
 
 /**
- * Interface MailerServiceInterface
+ * Class SMTPMailer
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Mailers\SMTPMailer
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-interface MailerInterface extends ServiceInterface {
+class SMTPMailer extends PHPMailer {
 	/**
-	 * @param EMailInterface $email
-	 * @return void|mixed
+	 * SMTPMailer constructor.
+	 *
+	 * @param string $host
+	 * @param string|null $username
+	 * @param string|null $password
+	 * @param int|null $port
 	 */
-	public function send(EMailInterface $email);
+	public function __construct(string $host, string $username = null, string $password = null, int $port = null) {
+		parent::__construct();
+		$phpMailer = $this->getPHPMailer();
+		$phpMailer->isSMTP();
+		$phpMailer->Host = $host;
+		if ($username !== null) {
+			$phpMailer->SMTPAuth = true;
+			$phpMailer->Username = $username;
+			if ($password !== null) {
+				$phpMailer->Password = $password;
+			}
+		}
+		if ($port !== null) {
+			$phpMailer->Port = $port;
+		}
+	}
 }

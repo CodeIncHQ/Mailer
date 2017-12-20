@@ -19,15 +19,15 @@
 // Time:     11:55
 // Project:  lib-mailer
 //
-namespace CodeInc\Mailer\DomainObjects\Address;
-use CodeInc\Mailer\DomainObjects\Address\Exceptions\InvalidEmailAddressException;
-use CodeInc\Mailer\DomainObjects\DomainObjectException;
+namespace CodeInc\Mailer\Address;
+use CodeInc\Mailer\Address\Exceptions\InvalidEmailAddressException;
+use CodeInc\Mailer\DomainObjectException;
 
 
 /**
  * Class Address
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Address
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
 class Address implements AddressInteface {
