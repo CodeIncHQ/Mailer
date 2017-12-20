@@ -23,9 +23,11 @@ namespace CodeInc\Mailer\DomainObjects\Mail;
 use CodeInc\Mailer\DomainObjects\Address\AddressInteface;
 use CodeInc\Mailer\DomainObjects\Mail\Exceptions\ContentNotSetException;
 use CodeInc\Mailer\DomainObjects\Mail\Exceptions\EmptySubjectException;
+use CodeInc\Mailer\DomainObjects\Mail\Exceptions\HTMLConvertException;
 use CodeInc\Mailer\DomainObjects\Mail\Exceptions\RecipientNotSetException;
 use CodeInc\Mailer\DomainObjects\Mail\Exceptions\SenderNotSetException;
 use CodeInc\Mailer\DomainObjects\Mail\Exceptions\SubjectNotSetException;
+use Html2Text\Html2Text;
 
 
 /**
@@ -156,13 +158,19 @@ class Mail implements MailInterface {
 	/**
 	 * @return string
 	 * @throws ContentNotSetException
+	 * @throws HTMLConvertException
 	 */
 	public function getTextContent():string {
 		if ($this->hasTextContent()) {
 			return $this->textContent;
 		}
 		else if ($this->hasHTMLContent()) {
-			return strip_tags($this->HTMLContent);
+			try {
+				return Html2Text::convert($this->HTMLContent);
+			}
+			catch (\Throwable $exception) {
+				throw new HTMLConvertException($this, $exception);
+			}
 		}
 		else {
 			throw new ContentNotSetException($this);
