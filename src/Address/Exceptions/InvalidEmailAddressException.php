@@ -17,7 +17,7 @@
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
 // Time:     12:15
-// Project:  lib-mailer
+// Project:  Mailer
 //
 namespace CodeInc\Mailer\Address\Exceptions;
 use CodeInc\Mailer\Address\AddressInteface;

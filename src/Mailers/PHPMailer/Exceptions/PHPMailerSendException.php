@@ -17,7 +17,7 @@
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
 // Time:     16:44
-// Project:  lib-mailer
+// Project:  Mailer
 //
 namespace CodeInc\Mailer\Mailers\PHPMailer\Exceptions;
 use CodeInc\Mailer\Mailers\PHPMailer\PHPMailer;

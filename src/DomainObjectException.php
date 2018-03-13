@@ -17,7 +17,7 @@
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
 // Time:     11:57
-// Project:  lib-mailer
+// Project:  Mailer
 //
 namespace CodeInc\Mailer;
 use CodeInc\Mailer\CodeIncMailerException;

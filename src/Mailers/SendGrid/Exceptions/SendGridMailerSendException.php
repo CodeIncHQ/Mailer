@@ -17,7 +17,7 @@
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
 // Time:     16:36
-// Project:  lib-mailer
+// Project:  Mailer
 //
 namespace CodeInc\Mailer\Mailers\SendGrid\Exceptions;
 use CodeInc\Mailer\Mailers\SendGrid\SendGridMailer;

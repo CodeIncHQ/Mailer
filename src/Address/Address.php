@@ -17,7 +17,7 @@
 // Author:   Joan Fabrégat <joan@codeinc.fr>
 // Date:     20/12/2017
 // Time:     11:55
-// Project:  lib-mailer
+// Project:  Mailer
 //
 namespace CodeInc\Mailer\Address;
 use CodeInc\Mailer\Address\Exceptions\InvalidEmailAddressException;
