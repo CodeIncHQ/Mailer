@@ -1,6 +1,6 @@
 # Mailer library
 
-:warning: This library is quite old and should be modified soon
+:warning: The library is being rewritten and should not be used until further notice
 
 ## Usage
 
