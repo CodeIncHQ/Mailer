@@ -20,6 +20,8 @@
 //
 declare(strict_types=1);
 namespace CodeInc\Mailer;
+use CodeInc\Mailer\Interfaces\EmailAttachmentInterface;
+use CodeInc\MediaTypes\MediaTypes;
 
 
 /**
@@ -51,6 +53,7 @@ class LocalFileAttachment implements EmailAttachmentInterface
      * @param string $localFilePath
      * @param null|string $fileName
      * @param null|string $mimeType
+     * @throws \CodeInc\MediaTypes\Exceptions\MediaTypesException
      */
     public function __construct(string $localFilePath, ?string $fileName = null, ?string $mimeType = null)
     {

@@ -19,12 +19,12 @@
 // Project:  Mailer
 //
 declare(strict_types=1);
-namespace CodeInc\Mailer;
+namespace CodeInc\Mailer\Interfaces;
 
 /**
  * Interface EmailAttachmentInterface
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Interfaces
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
 interface EmailAttachmentInterface

@@ -20,6 +20,8 @@
 //
 declare(strict_types=1);
 namespace CodeInc\Mailer;
+use CodeInc\Mailer\Interfaces\EmailAddressInterface;
+
 
 /**
  * Class EmailAddress

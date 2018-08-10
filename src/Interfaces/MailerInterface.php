@@ -3,7 +3,7 @@
 // +---------------------------------------------------------------------+
 // | CODE INC. SOURCE CODE                                               |
 // +---------------------------------------------------------------------+
-// | Copyright (c) 2018 - Code Inc. SAS - All Rights Reserved.           |
+// | Copyright (c) 2017 - Code Inc. SAS - All Rights Reserved.           |
 // | Visit https://www.codeinc.fr for more information about licensing.  |
 // +---------------------------------------------------------------------+
 // | NOTICE:  All information contained herein is, and remains the       |
@@ -15,27 +15,22 @@
 // +---------------------------------------------------------------------+
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
-// Date:     10/08/2018
+// Date:     2018-03-30
+// Time:     12:00
 // Project:  Mailer
 //
-declare(strict_types=1);
-namespace CodeInc\Mailer;
+namespace CodeInc\Mailer\Interfaces;
 
 /**
- * Interface EmailAddressInterface
+ * Interface MailerInterface
  *
- * @package CodeInc\Mailer
+ * @package CodeInc\Mailer\Interfaces
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-interface EmailAddressInterface
+interface MailerInterface
 {
     /**
-     * @return null|string
+     * @param EmailInterface $email
      */
-    public function getName():?string;
-
-    /**
-     * @return string
-     */
-    public function getAddress():string;
+	public function send(EmailInterface $email):void;
 }
