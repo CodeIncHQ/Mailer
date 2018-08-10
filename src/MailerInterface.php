@@ -10,34 +10,27 @@
 // | property of Code Inc. SAS. The intellectual and technical concepts  |
 // | contained herein are proprietary to Code Inc. SAS are protected by  |
 // | trade secret or copyright law. Dissemination of this information or |
-// | reproduction of this material  is strictly forbidden unless prior   |
+// | reproduction of this material is strictly forbidden unless prior    |
 // | written permission is obtained from Code Inc. SAS.                  |
 // +---------------------------------------------------------------------+
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
-// Date:     20/12/2017
-// Time:     16:36
+// Date:     2018-03-30
+// Time:     12:00
 // Project:  Mailer
 //
-namespace CodeInc\Mailer\Mailers\SendGrid\Exceptions;
-use CodeInc\Mailer\Mailers\SendGrid\SendGridMailer;
-use Throwable;
-
+namespace CodeInc\Mailer;
 
 /**
- * Class SendGridMailerSendException
+ * Interface MailerInterface
  *
- * @package CodeInc\Mailer\Mailers\SendGrid\Exceptions
+ * @package CodeInc\Mailer
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class SendGridMailerSendException extends SendGridMailerException {
-	/**
-	 * SendGridMailerSendException constructor.
-	 *
-	 * @param SendGridMailer $sendGridMailer
-	 * @param Throwable|null $previous
-	 */
-	public function __construct(SendGridMailer $sendGridMailer, Throwable $previous = null) {
-		parent::__construct($sendGridMailer, "Error while sending an email using SendGrid", $previous);
-	}
+interface MailerInterface
+{
+    /**
+     * @param EmailInterface $email
+     */
+	public function send(EmailInterface $email):void;
 }
