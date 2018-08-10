@@ -1,19 +1,11 @@
 # Mailer library
 
-:warning: The library is being rewritten and should not be used until further notice
+:warning: The version 2 of this library is not compatible with the version 1. The code is now splitted in different repositories for different mailers. 
 
-## Usage
-
-```php
-// Nothing yet
-```
-
-## Installation
-This library is available through [Packagist](https://packagist.org/packages/codeinc/mailer) and can be installed using [Composer](https://getcomposer.org/): 
-
-```bash
-composer require codeinc/mailer
-```
+This package provides the basic classes used by the following mailers:
+* [AWS SES mailer](https://github.com/CodeIncHQ/AwsSesMailer)
+* [SendGrid mailer](https://github.com/CodeIncHQ/SendGridMailer)
+* [SMTP mailer](https://github.com/CodeIncHQ/SmtpMailer) (based on [PHPMailer](https://github.com/PHPMailer/PHPMailer))
 
 ## License
 
