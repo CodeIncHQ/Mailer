@@ -9,4 +9,4 @@ This package provides the basic classes used by the following mailers:
 
 ## License
 
-The library is published under the MIT license (see [`LICENSE`](LICENSE) file).LICENSE
+The library is published under the MIT license (see [`LICENSE`](LICENSE) file).
