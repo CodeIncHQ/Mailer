@@ -10,34 +10,27 @@
 // | property of Code Inc. SAS. The intellectual and technical concepts  |
 // | contained herein are proprietary to Code Inc. SAS are protected by  |
 // | trade secret or copyright law. Dissemination of this information or |
-// | reproduction of this material  is strictly forbidden unless prior   |
+// | reproduction of this material is strictly forbidden unless prior    |
 // | written permission is obtained from Code Inc. SAS.                  |
 // +---------------------------------------------------------------------+
 //
 // Author:   Joan Fabrégat <joan@codeinc.fr>
-// Date:     20/12/2017
-// Time:     16:44
+// Date:     2018-03-30
+// Time:     12:00
 // Project:  Mailer
 //
-namespace CodeInc\Mailer\Mailers\PHPMailer\Exceptions;
-use CodeInc\Mailer\Mailers\PHPMailer\PHPMailer;
-use Throwable;
-
+namespace CodeInc\Mailer\Interfaces;
 
 /**
- * Class PHPMailerSendException
+ * Interface MailerInterface
  *
- * @package CodeInc\Mailer\Mailers\PHPMailer\Exceptions
+ * @package CodeInc\Mailer\Interfaces
  * @author Joan Fabrégat <joan@codeinc.fr>
  */
-class PHPMailerSendException extends PHPMailerException {
-	/**
-	 * PHPMailerSendException constructor.
-	 *
-	 * @param PHPMailer $mailer
-	 * @param Throwable|null $previous
-	 */
-	public function __construct(PHPMailer $mailer, Throwable $previous = null) {
-		parent::__construct($mailer, "Error while sending an email using PHPMailer", $previous);
-	}
+interface MailerInterface
+{
+    /**
+     * @param EmailInterface $email
+     */
+	public function send(EmailInterface $email):void;
 }
