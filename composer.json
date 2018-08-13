@@ -26,9 +26,9 @@
     }
   ],
   "suggest": {
-    "codeinc/mailer-aws-ses": "AWS SES mailer",
-    "codeinc/mailer-sendgrid": "SendGrid mailer",
-    "codeinc/mailer-smtp": "SMTP mailer",
+    "codeinc/aws-ses-mailer": "AWS SES mailer",
+    "codeinc/sendgrid-mailer": "SendGrid mailer",
+    "codeinc/smtp-mailer": "SMTP mailer",
     "codeinc/mailer-email-to-mime-message": "Convert an email to a MIME multipart message"
   },
   "config": {
