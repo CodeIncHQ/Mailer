@@ -25,11 +25,11 @@
       "role": "developer"
     }
   ],
-  "suggests": {
-    "codeinc/mailer-email-to-mime-message": "Convert an email to a MIME multipart message",
+  "suggest": {
     "codeinc/mailer-aws-ses": "AWS SES mailer",
     "codeinc/mailer-sendgrid": "SendGrid mailer",
-    "codeinc/mailer-smtp": "SMTP mailer"
+    "codeinc/mailer-smtp": "SMTP mailer",
+    "codeinc/mailer-email-to-mime-message": "Convert an email to a MIME multipart message"
   },
   "config": {
     "preferred-install": {
